@@ -26,7 +26,12 @@ public class StockManager
      */
     public void addProduct(Product item)
     {
-        stockList.add(item);
+        int itemID = item.getID();
+        if(findProduct(itemID) == null){
+            stockList.add(item);
+        } else {
+            System.out.println("ID already in use.");
+        }
     }
     
     /**
@@ -85,4 +90,22 @@ public class StockManager
         }
     }
     
+    public void printDetailsOfStockBelow(int quantity){
+        for(Product product : stockList){
+            int productQuantity = product.getQuantity();
+            if (productQuantity < quantity){
+                System.out.println(product.toString());
+            }
+        }
+    }
+    
+    public Product findProduct(String name){
+        for (Product product : stockList){
+            String targetedProductName = product.getName();
+            if (name.equals(targetedProductName)){
+                return product;
+            }
+        }
+        return null;
+    }
 }
